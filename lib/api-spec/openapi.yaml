@@ -213,7 +213,7 @@ components:
 
     EcosystemType:
       type: string
-      enum: [forest, river, grassland]
+      enum: [forest, river, grassland, polar]
 
     HealthStatusEnum:
       type: string

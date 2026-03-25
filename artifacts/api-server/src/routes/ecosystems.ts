@@ -20,7 +20,7 @@ const speciesSchema = z.object({
 
 const createEcosystemSchema = z.object({
   name: z.string().min(1),
-  type: z.enum(["forest", "river", "grassland"]),
+  type: z.enum(["forest", "river", "grassland", "polar"]),
   temperature: z.number().min(-10).max(50),
   rainfall: z.number().min(0).max(5000),
   pollution: z.number().min(0).max(1),
@@ -76,6 +76,7 @@ router.post("/ecosystems", async (req, res) => {
     plants,
     herbivores,
     predators,
+    ecosystemType: data.type,
   };
   const predictions = runMLPipeline(params);
   const [eco] = await db.insert(ecosystemsTable).values({
@@ -148,6 +149,7 @@ router.put("/ecosystems/:id/intervene", async (req, res) => {
     plants,
     herbivores,
     predators,
+    ecosystemType: eco.type,
   };
   params = applyInterventionToParams(params, parsed.data.type, parsed.data.intensity);
   const predictions = runMLPipeline(params);
@@ -198,7 +200,7 @@ router.post("/simulation/:id/run", async (req, res) => {
   const species = eco.species as Array<{ type: string; initialPopulation: number }>;
   const { plants, herbivores, predators } = getPopulationsFromSpecies(species);
 
-  const dataPoints = runLotkaVolterra(plants, herbivores, predators, eco.pollution, eco.deforestationRate, clampedWeeks);
+  const dataPoints = runLotkaVolterra(plants, herbivores, predators, eco.pollution, eco.deforestationRate, eco.temperature, eco.rainfall, clampedWeeks);
 
   const lastPoint = dataPoints[dataPoints.length - 1];
   const finalParams: EcosystemParams = {
@@ -209,6 +211,7 @@ router.post("/simulation/:id/run", async (req, res) => {
     plants: lastPoint.plants,
     herbivores: lastPoint.herbivores,
     predators: lastPoint.predators,
+    ecosystemType: eco.type,
   };
   const finalPredictions = runMLPipeline(finalParams);
 

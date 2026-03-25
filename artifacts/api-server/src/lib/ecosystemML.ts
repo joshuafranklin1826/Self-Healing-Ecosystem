@@ -1,11 +1,12 @@
 export interface EcosystemParams {
-  temperature: number;      // -10 to 50 °C
-  rainfall: number;         // 0 to 5000 mm
-  pollution: number;        // 0 to 1 (stored as fraction; spec treats as 0-100%)
+  temperature: number;       // -10 to 50 °C
+  rainfall: number;          // 0 to 5000 mm
+  pollution: number;         // 0 to 1 (stored as fraction; spec treats as 0-100%)
   deforestationRate: number; // 0 to 1 (stored as fraction; spec treats as 0-10 %/year)
-  plants: number;           // 10-100 scale (normalized population index)
-  herbivores: number;       // 5-100 scale
-  predators: number;        // 2-50 scale
+  plants: number;            // 10-100 scale (normalized population index)
+  herbivores: number;        // 5-100 scale
+  predators: number;         // 2-50 scale
+  ecosystemType?: string;    // forest | river | grassland | polar
 }
 
 export interface Recommendation {
@@ -37,30 +38,41 @@ function clamp(val: number, min: number, max: number): number {
   return Math.max(min, Math.min(max, val));
 }
 
+// Per-ecosystem-type environmental optima
+const ECO_OPTIMA: Record<string, { tempLow: number; tempHigh: number; tempCritical: number; rainfallLow: number; rainfallHigh: number; rainfallCritical: number }> = {
+  forest:    { tempLow: 20, tempHigh: 30, tempCritical: 35, rainfallLow: 500, rainfallHigh: 1500, rainfallCritical: 2000 },
+  river:     { tempLow: 15, tempHigh: 28, tempCritical: 33, rainfallLow: 400, rainfallHigh: 2000, rainfallCritical: 3000 },
+  grassland: { tempLow: 18, tempHigh: 32, tempCritical: 38, rainfallLow: 250, rainfallHigh: 900,  rainfallCritical: 1500 },
+  polar:     { tempLow: -10, tempHigh: 5,  tempCritical: 10, rainfallLow: 50,  rainfallHigh: 400,  rainfallCritical: 600  },
+};
+
 /**
  * Health score formula from the spec's dataset generation:
  * Start at 100, subtract penalties for temp/rainfall/pollution/deforestation
  * Award biodiversity bonus if all trophic levels present.
- * Scales pollution (0-1) to (0-100) and deforestationRate (0-1) to (0-10).
+ * Uses per-ecosystem-type optima for temperature and rainfall.
  */
 export function computeHealthScore(params: EcosystemParams): number {
   const pollutionPct = params.pollution * 100;       // convert fraction → %
   const deforestPct = params.deforestationRate * 10; // convert fraction → %/year
+  const optima = ECO_OPTIMA[params.ecosystemType ?? "forest"] ?? ECO_OPTIMA.forest;
 
   let score = 100;
 
-  // Temperature impact (optimal: 20-30°C)
-  if (params.temperature > 35) {
-    score -= (params.temperature - 35) * 2;
-  } else if (params.temperature < 20) {
-    score -= (20 - params.temperature) * 1.5;
+  // Temperature impact (ecosystem-specific optimal range)
+  if (params.temperature > optima.tempCritical) {
+    score -= (params.temperature - optima.tempCritical) * 2;
+  } else if (params.temperature > optima.tempHigh) {
+    score -= (params.temperature - optima.tempHigh) * 0.8;
+  } else if (params.temperature < optima.tempLow) {
+    score -= (optima.tempLow - params.temperature) * 1.5;
   }
 
-  // Rainfall impact (optimal: 500-1500mm)
-  if (params.rainfall < 500) {
-    score -= ((500 - params.rainfall) / 100) * 3;
-  } else if (params.rainfall > 2000) {
-    score -= ((params.rainfall - 2000) / 100) * 2;
+  // Rainfall impact (ecosystem-specific optimal range)
+  if (params.rainfall < optima.rainfallLow) {
+    score -= ((optima.rainfallLow - params.rainfall) / 100) * 3;
+  } else if (params.rainfall > optima.rainfallCritical) {
+    score -= ((params.rainfall - optima.rainfallCritical) / 100) * 2;
   }
 
   // Pollution impact (critical above 70%)

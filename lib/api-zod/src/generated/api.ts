@@ -32,7 +32,7 @@ export const createEcosystemBodyDeforestationRateMax = 1;
 
 export const CreateEcosystemBody = zod.object({
   name: zod.string(),
-  type: zod.enum(["forest", "river", "grassland"]),
+  type: zod.enum(["forest", "river", "grassland", "polar"]),
   temperature: zod
     .number()
     .min(createEcosystemBodyTemperatureMin)
@@ -77,7 +77,7 @@ export const listEcosystemsResponsePredictionsBiodiversityIndexMax = 1;
 export const ListEcosystemsResponseItem = zod.object({
   id: zod.string(),
   name: zod.string(),
-  type: zod.enum(["forest", "river", "grassland"]),
+  type: zod.enum(["forest", "river", "grassland", "polar"]),
   temperature: zod.number(),
   rainfall: zod.number(),
   pollution: zod.number(),
@@ -152,7 +152,7 @@ export const getEcosystemResponsePredictionsBiodiversityIndexMax = 1;
 export const GetEcosystemResponse = zod.object({
   id: zod.string(),
   name: zod.string(),
-  type: zod.enum(["forest", "river", "grassland"]),
+  type: zod.enum(["forest", "river", "grassland", "polar"]),
   temperature: zod.number(),
   rainfall: zod.number(),
   pollution: zod.number(),
@@ -254,7 +254,7 @@ export const applyInterventionResponsePredictionsBiodiversityIndexMax = 1;
 export const ApplyInterventionResponse = zod.object({
   id: zod.string(),
   name: zod.string(),
-  type: zod.enum(["forest", "river", "grassland"]),
+  type: zod.enum(["forest", "river", "grassland", "polar"]),
   temperature: zod.number(),
   rainfall: zod.number(),
   pollution: zod.number(),

@@ -12,4 +12,5 @@ export const EcosystemType = {
   forest: "forest",
   river: "river",
   grassland: "grassland",
+  polar: "polar",
 } as const;

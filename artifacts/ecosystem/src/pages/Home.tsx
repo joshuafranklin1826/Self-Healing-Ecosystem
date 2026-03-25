@@ -1,7 +1,7 @@
 import { useListEcosystems, useDeleteEcosystem, getListEcosystemsQueryKey } from "@workspace/api-client-react";
 import { Link } from "wouter";
 import { Layout } from "@/components/Layout";
-import { Leaf, Droplet, Wind, ArrowRight, Trash2, Activity, Globe } from "lucide-react";
+import { Leaf, Droplet, Wind, ArrowRight, Trash2, Activity, Globe, Snowflake } from "lucide-react";
 import { motion } from "framer-motion";
 import { useQueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
@@ -21,10 +21,11 @@ export default function Home() {
 
   const getIcon = (type: string) => {
     switch (type) {
-      case 'forest': return <Leaf className="w-6 h-6 text-primary" />;
-      case 'river': return <Droplet className="w-6 h-6 text-secondary" />;
-      case 'grassland': return <Wind className="w-6 h-6 text-accent" />;
-      default: return <Activity className="w-6 h-6 text-primary" />;
+      case 'forest':    return <Leaf      className="w-6 h-6 text-primary"    />;
+      case 'river':     return <Droplet   className="w-6 h-6 text-secondary"  />;
+      case 'grassland': return <Wind      className="w-6 h-6 text-accent"     />;
+      case 'polar':     return <Snowflake className="w-6 h-6 text-blue-400"   />;
+      default:          return <Activity  className="w-6 h-6 text-primary"    />;
     }
   };
 

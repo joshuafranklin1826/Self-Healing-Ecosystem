@@ -4,10 +4,10 @@ import { useCreateEcosystem, getListEcosystemsQueryKey } from "@workspace/api-cl
 import { useQueryClient } from "@tanstack/react-query";
 import { Layout } from "@/components/Layout";
 import { motion, AnimatePresence } from "framer-motion";
-import { Leaf, Droplet, Wind, Settings, Cpu, ChevronRight, Check } from "lucide-react";
+import { Leaf, Droplet, Wind, Settings, Cpu, ChevronRight, Check, Snowflake } from "lucide-react";
 
 type SpeciesType = "plant" | "herbivore" | "predator";
-type EcoType = "forest" | "river" | "grassland";
+type EcoType = "forest" | "river" | "grassland" | "polar";
 
 interface SpeciesOption {
   id: string;
@@ -21,44 +21,56 @@ interface SpeciesOption {
 
 const SPECIES_BY_TYPE: Record<EcoType, SpeciesOption[]> = {
   forest: [
-    { id: "oak", name: "Oak Tree", type: "plant", defaultPop: 70, min: 10, max: 100, emoji: "🌳" },
-    { id: "grass", name: "Wild Grass", type: "plant", defaultPop: 80, min: 10, max: 100, emoji: "🌿" },
-    { id: "fern", name: "Fern", type: "plant", defaultPop: 50, min: 10, max: 100, emoji: "🌱" },
-    { id: "deer", name: "Deer", type: "herbivore", defaultPop: 40, min: 5, max: 100, emoji: "🦌" },
-    { id: "rabbit", name: "Rabbit", type: "herbivore", defaultPop: 60, min: 5, max: 100, emoji: "🐇" },
-    { id: "squirrel", name: "Squirrel", type: "herbivore", defaultPop: 50, min: 5, max: 100, emoji: "🐿️" },
-    { id: "wolf", name: "Wolf", type: "predator", defaultPop: 15, min: 2, max: 50, emoji: "🐺" },
-    { id: "bear", name: "Bear", type: "predator", defaultPop: 10, min: 2, max: 50, emoji: "🐻" },
-    { id: "fox", name: "Fox", type: "predator", defaultPop: 20, min: 2, max: 50, emoji: "🦊" },
+    { id: "oak",      name: "Oak Tree",    type: "plant",     defaultPop: 70, min: 10, max: 100, emoji: "🌳" },
+    { id: "grass",    name: "Wild Grass",  type: "plant",     defaultPop: 80, min: 10, max: 100, emoji: "🌿" },
+    { id: "fern",     name: "Fern",        type: "plant",     defaultPop: 50, min: 10, max: 100, emoji: "🌱" },
+    { id: "deer",     name: "Deer",        type: "herbivore", defaultPop: 40, min: 5,  max: 100, emoji: "🦌" },
+    { id: "rabbit",   name: "Rabbit",      type: "herbivore", defaultPop: 60, min: 5,  max: 100, emoji: "🐇" },
+    { id: "squirrel", name: "Squirrel",    type: "herbivore", defaultPop: 50, min: 5,  max: 100, emoji: "🐿️" },
+    { id: "wolf",     name: "Wolf",        type: "predator",  defaultPop: 15, min: 2,  max: 50,  emoji: "🐺" },
+    { id: "bear",     name: "Bear",        type: "predator",  defaultPop: 10, min: 2,  max: 50,  emoji: "🐻" },
+    { id: "fox",      name: "Fox",         type: "predator",  defaultPop: 20, min: 2,  max: 50,  emoji: "🦊" },
   ],
   river: [
-    { id: "algae", name: "Algae", type: "plant", defaultPop: 90, min: 10, max: 100, emoji: "🌊" },
-    { id: "lily", name: "Water Lily", type: "plant", defaultPop: 60, min: 10, max: 100, emoji: "🪷" },
-    { id: "reed", name: "Reed", type: "plant", defaultPop: 55, min: 10, max: 100, emoji: "🌾" },
-    { id: "fish", name: "Small Fish", type: "herbivore", defaultPop: 70, min: 5, max: 100, emoji: "🐟" },
-    { id: "otter", name: "Otter", type: "herbivore", defaultPop: 30, min: 5, max: 100, emoji: "🦦" },
-    { id: "duck", name: "Duck", type: "herbivore", defaultPop: 50, min: 5, max: 100, emoji: "🦆" },
-    { id: "heron", name: "Heron", type: "predator", defaultPop: 12, min: 2, max: 50, emoji: "🦤" },
-    { id: "pike", name: "Pike", type: "predator", defaultPop: 20, min: 2, max: 50, emoji: "🐡" },
-    { id: "osprey", name: "Osprey", type: "predator", defaultPop: 8, min: 2, max: 50, emoji: "🦅" },
+    { id: "algae",    name: "Algae",       type: "plant",     defaultPop: 90, min: 10, max: 100, emoji: "🌊" },
+    { id: "lily",     name: "Water Lily",  type: "plant",     defaultPop: 60, min: 10, max: 100, emoji: "🪷" },
+    { id: "reed",     name: "Reed",        type: "plant",     defaultPop: 55, min: 10, max: 100, emoji: "🌾" },
+    { id: "fish",     name: "Small Fish",  type: "herbivore", defaultPop: 70, min: 5,  max: 100, emoji: "🐟" },
+    { id: "otter",    name: "Otter",       type: "herbivore", defaultPop: 30, min: 5,  max: 100, emoji: "🦦" },
+    { id: "duck",     name: "Duck",        type: "herbivore", defaultPop: 50, min: 5,  max: 100, emoji: "🦆" },
+    { id: "heron",    name: "Heron",       type: "predator",  defaultPop: 12, min: 2,  max: 50,  emoji: "🦤" },
+    { id: "pike",     name: "Pike",        type: "predator",  defaultPop: 20, min: 2,  max: 50,  emoji: "🐡" },
+    { id: "osprey",   name: "Osprey",      type: "predator",  defaultPop: 8,  min: 2,  max: 50,  emoji: "🦅" },
   ],
   grassland: [
-    { id: "grass2", name: "Savanna Grass", type: "plant", defaultPop: 85, min: 10, max: 100, emoji: "🌾" },
-    { id: "shrub", name: "Shrub", type: "plant", defaultPop: 55, min: 10, max: 100, emoji: "🌵" },
-    { id: "wildflower", name: "Wildflower", type: "plant", defaultPop: 65, min: 10, max: 100, emoji: "🌼" },
-    { id: "bison", name: "Bison", type: "herbivore", defaultPop: 45, min: 5, max: 100, emoji: "🦬" },
-    { id: "prairie_dog", name: "Prairie Dog", type: "herbivore", defaultPop: 75, min: 5, max: 100, emoji: "🐾" },
-    { id: "gazelle", name: "Gazelle", type: "herbivore", defaultPop: 55, min: 5, max: 100, emoji: "🦌" },
-    { id: "hawk", name: "Hawk", type: "predator", defaultPop: 18, min: 2, max: 50, emoji: "🦅" },
-    { id: "coyote", name: "Coyote", type: "predator", defaultPop: 22, min: 2, max: 50, emoji: "🐺" },
-    { id: "snake", name: "Rattlesnake", type: "predator", defaultPop: 30, min: 2, max: 50, emoji: "🐍" },
+    { id: "sav_grass",  name: "Savanna Grass", type: "plant",     defaultPop: 85, min: 10, max: 100, emoji: "🌾" },
+    { id: "shrub",      name: "Shrub",          type: "plant",     defaultPop: 55, min: 10, max: 100, emoji: "🌵" },
+    { id: "wildflower", name: "Wildflower",     type: "plant",     defaultPop: 65, min: 10, max: 100, emoji: "🌼" },
+    { id: "bison",      name: "Bison",          type: "herbivore", defaultPop: 45, min: 5,  max: 100, emoji: "🦬" },
+    { id: "prairie_dog",name: "Prairie Dog",    type: "herbivore", defaultPop: 75, min: 5,  max: 100, emoji: "🐾" },
+    { id: "gazelle",    name: "Gazelle",        type: "herbivore", defaultPop: 55, min: 5,  max: 100, emoji: "🦌" },
+    { id: "hawk",       name: "Hawk",           type: "predator",  defaultPop: 18, min: 2,  max: 50,  emoji: "🦅" },
+    { id: "coyote",     name: "Coyote",         type: "predator",  defaultPop: 22, min: 2,  max: 50,  emoji: "🐺" },
+    { id: "snake",      name: "Rattlesnake",    type: "predator",  defaultPop: 30, min: 2,  max: 50,  emoji: "🐍" },
+  ],
+  polar: [
+    { id: "arc_moss",   name: "Arctic Moss",    type: "plant",     defaultPop: 65, min: 10, max: 100, emoji: "🌿" },
+    { id: "lichen",     name: "Lichen",         type: "plant",     defaultPop: 75, min: 10, max: 100, emoji: "🍃" },
+    { id: "tundra_grass",name: "Tundra Grass",  type: "plant",     defaultPop: 55, min: 10, max: 100, emoji: "🌱" },
+    { id: "arc_hare",   name: "Arctic Hare",    type: "herbivore", defaultPop: 55, min: 5,  max: 100, emoji: "🐇" },
+    { id: "lemming",    name: "Lemming",        type: "herbivore", defaultPop: 70, min: 5,  max: 100, emoji: "🐭" },
+    { id: "musk_ox",    name: "Musk Ox",        type: "herbivore", defaultPop: 35, min: 5,  max: 100, emoji: "🦌" },
+    { id: "arc_fox",    name: "Arctic Fox",     type: "predator",  defaultPop: 25, min: 2,  max: 50,  emoji: "🦊" },
+    { id: "polar_bear", name: "Polar Bear",     type: "predator",  defaultPop: 8,  min: 2,  max: 50,  emoji: "🐻‍❄️" },
+    { id: "snowy_owl",  name: "Snowy Owl",      type: "predator",  defaultPop: 18, min: 2,  max: 50,  emoji: "🦉" },
   ],
 };
 
 const DEFAULT_SELECTED: Record<EcoType, string[]> = {
-  forest: ["oak", "deer", "wolf"],
-  river: ["algae", "fish", "heron"],
-  grassland: ["grass2", "bison", "hawk"],
+  forest:    ["oak", "deer", "wolf"],
+  river:     ["algae", "fish", "heron"],
+  grassland: ["sav_grass", "bison", "hawk"],
+  polar:     ["arc_moss", "arc_hare", "polar_bear"],
 };
 
 export default function Builder() {
@@ -76,10 +88,19 @@ export default function Builder() {
   const [selectedSpecies, setSelectedSpecies] = useState<string[]>(DEFAULT_SELECTED.forest);
   const [populations, setPopulations] = useState<Record<string, number>>({});
 
+  const ECO_DEFAULTS: Record<EcoType, { temperature: number; rainfall: number }> = {
+    forest:    { temperature: 22, rainfall: 1200 },
+    river:     { temperature: 18, rainfall: 1600 },
+    grassland: { temperature: 26, rainfall: 500  },
+    polar:     { temperature: -3, rainfall: 200  },
+  };
+
   const handleTypeChange = (newType: EcoType) => {
     setType(newType);
     setSelectedSpecies(DEFAULT_SELECTED[newType]);
     setPopulations({});
+    setTemperature(ECO_DEFAULTS[newType].temperature);
+    setRainfall(ECO_DEFAULTS[newType].rainfall);
   };
 
   const toggleSpecies = (id: string) => {
@@ -189,11 +210,12 @@ export default function Builder() {
                   </div>
                   <div>
                     <label className="block text-sm font-semibold tracking-wider text-muted-foreground mb-4">BIOME TYPE</label>
-                    <div className="grid grid-cols-3 gap-4">
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
                       {([
-                        { id: "forest", icon: Leaf, label: "Forest", desc: "Dense tree canopy, high biodiversity", color: "text-primary", glow: "hover:shadow-[0_0_20px_rgba(0,255,136,0.2)]" },
-                        { id: "river", icon: Droplet, label: "River", desc: "Aquatic ecosystem, water-dependent species", color: "text-secondary", glow: "hover:shadow-[0_0_20px_rgba(0,255,255,0.2)]" },
-                        { id: "grassland", icon: Wind, label: "Grassland", desc: "Open plains, grazing species", color: "text-accent", glow: "hover:shadow-[0_0_20px_rgba(255,107,53,0.2)]" },
+                        { id: "forest",    icon: Leaf,      label: "Forest",    desc: "Dense canopy, high biodiversity",       color: "text-primary",   glow: "hover:shadow-[0_0_20px_rgba(0,255,136,0.2)]" },
+                        { id: "river",     icon: Droplet,   label: "River",     desc: "Aquatic, water-dependent species",      color: "text-secondary", glow: "hover:shadow-[0_0_20px_rgba(0,255,255,0.2)]" },
+                        { id: "grassland", icon: Wind,      label: "Grassland", desc: "Open plains, grazing species",          color: "text-accent",    glow: "hover:shadow-[0_0_20px_rgba(255,107,53,0.2)]" },
+                        { id: "polar",     icon: Snowflake, label: "Polar",     desc: "Arctic tundra, cold-adapted species",   color: "text-blue-400",  glow: "hover:shadow-[0_0_20px_rgba(100,160,255,0.3)]" },
                       ] as const).map(t => (
                         <button
                           key={t.id}
