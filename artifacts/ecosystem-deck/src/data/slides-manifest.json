@@ -1,0 +1,58 @@
+[
+  {
+    "id": "a1b2c3d4-0001-4000-8000-000000000001",
+    "position": 1,
+    "filepath": "src/pages/slides/Slide1Title.tsx",
+    "title": "Title — Self-Healing Ecosystem Model",
+    "description": "Hero title slide with cyberpunk ecosystem background and platform tagline.",
+    "speakerNotes": ""
+  },
+  {
+    "id": "a1b2c3d4-0002-4000-8000-000000000002",
+    "position": 2,
+    "filepath": "src/pages/slides/Slide2Problem.tsx",
+    "title": "The Problem — Ecosystems Are Collapsing",
+    "description": "Three key statistics: 68% wildlife decline, 1M+ species at risk, zero real-time systems.",
+    "speakerNotes": ""
+  },
+  {
+    "id": "a1b2c3d4-0003-4000-8000-000000000003",
+    "position": 3,
+    "filepath": "src/pages/slides/Slide3Platform.tsx",
+    "title": "The Solution — Four Biomes, One Platform",
+    "description": "Platform overview with all four biome types: Forest, River, Grassland, Polar.",
+    "speakerNotes": ""
+  },
+  {
+    "id": "a1b2c3d4-0004-4000-8000-000000000004",
+    "position": 4,
+    "filepath": "src/pages/slides/Slide4ML.tsx",
+    "title": "ML Engine — 5 Models, One Intelligence Layer",
+    "description": "All five ML models: Health Classifier, Recovery Predictor, Collapse Risk SVM, Lotka-Volterra, Recommender.",
+    "speakerNotes": ""
+  },
+  {
+    "id": "a1b2c3d4-0005-4000-8000-000000000005",
+    "position": 5,
+    "filepath": "src/pages/slides/Slide5Architecture.tsx",
+    "title": "Architecture — Full-Stack Production System",
+    "description": "Three-layer architecture: React + Vite frontend, Express API, PostgreSQL database.",
+    "speakerNotes": ""
+  },
+  {
+    "id": "a1b2c3d4-0006-4000-8000-000000000006",
+    "position": 6,
+    "filepath": "src/pages/slides/Slide6Live.tsx",
+    "title": "Live System — Command Center Operational",
+    "description": "Real live data: 10 ecosystems, avg health 80, 7 healthy / 2 stressed / 1 collapsing.",
+    "speakerNotes": ""
+  },
+  {
+    "id": "a1b2c3d4-0007-4000-8000-000000000007",
+    "position": 7,
+    "filepath": "src/pages/slides/Slide7Close.tsx",
+    "title": "Closing — Ecosystem Command Center Online",
+    "description": "Closing slide with key stats: 5 ML models, 4 biomes, 36 species. All systems operational.",
+    "speakerNotes": ""
+  }
+]

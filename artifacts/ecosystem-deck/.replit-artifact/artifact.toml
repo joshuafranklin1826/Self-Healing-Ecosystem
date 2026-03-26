@@ -1,0 +1,31 @@
+kind = "slides"
+previewPath = "/ecosystem-deck/"
+title = "Self-Healing Ecosystem Model — Presentation"
+version = "1.0.0"
+id = "artifacts/ecosystem-deck"
+router = "path"
+
+[[integratedSkills]]
+name = "slides"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/ecosystem-deck/" ]
+localPort = 22463
+
+[services.development]
+run = "pnpm --filter @workspace/ecosystem-deck run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/ecosystem-deck", "run", "build" ]
+publicDir = "artifacts/ecosystem-deck/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "22463"
+BASE_PATH = "/ecosystem-deck/"
