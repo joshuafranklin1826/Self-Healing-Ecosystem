@@ -1,5 +1,7 @@
 # 🌿 Self-Healing Ecosystem Model
 
+🔗 **Live Demo:** [self-healing-model--khamzatchimaev1.replit.app](https://self-healing-model--khamzatchimaev1.replit.app)
+
 A full-stack Machine Learning powered web application that simulates ecosystem dynamics, predicts ecological health, and recommends interventions for forest, river, grassland, and polar biomes.
 
 **ML Health Accuracy: ✅ Multi-model pipeline (5 ML models)**
