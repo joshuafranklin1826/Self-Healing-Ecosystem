@@ -1,0 +1,171 @@
+# 🌿 Self-Healing Ecosystem Model
+
+🔗 Live Demo: https://self-healing-model--khamzatchimaev1.replit.app
+
+A full-stack Machine Learning web application that simulates real ecosystem dynamics, predicts ecological health, and recommends restoration interventions for Forest, River, Grassland, and Polar biomes.
+
+---
+
+## 📌 Problem Statement
+
+Ecosystems worldwide face threats from pollution, deforestation, climate change, and biodiversity loss. Monitoring ecological health in real-time is difficult because dozens of species and environmental factors interact simultaneously.
+
+This project uses Machine Learning to model those dynamics, predict collapse risk, and recommend corrective interventions — all through a live interactive web interface.
+
+---
+
+## 🎯 Key Features
+
+- 4 biome types — Forest, River, Grassland, Polar
+- 36 species with real population dynamics
+- 5 ML models running in a live pipeline
+- Real-time health score (0 to 100) and collapse risk prediction
+- Apply interventions and see instant effects on the ecosystem
+- Run week-by-week population simulations
+- AI-generated restoration recommendations with priority levels
+
+---
+
+## 🛠 Technology Stack
+
+Frontend
+- React 18 + Vite
+- TailwindCSS with cyberpunk dark theme
+- Framer Motion for animations
+- Recharts for data visualization
+- TanStack Query for data fetching
+
+Backend
+- Node.js + Express.js
+- Zod for request validation
+- Pino for structured logging
+- CORS enabled
+
+Database
+- PostgreSQL
+- Drizzle ORM
+
+Machine Learning
+- Health Classifier
+- Lotka-Volterra Population Dynamics
+- Recovery Time Predictor
+- Collapse Risk Classifier (SVM-style)
+- Recommendation Engine
+
+---
+
+## 🌍 Ecosystem Types
+
+Forest — 9 species — Oak, Deer, Wolf, Bear, Fox, Rabbit, Squirrel, Fern, Wild Grass
+
+River — 9 species — Algae, Water Lily, Reed, Fish, Otter, Duck, Heron, Pike, Osprey
+
+Grassland — 9 species — Savanna Grass, Shrub, Wildflower, Bison, Prairie Dog, Gazelle, Hawk, Coyote, Rattlesnake
+
+Polar — 9 species — Arctic Moss, Lichen, Tundra Grass, Arctic Hare, Lemming, Musk Ox, Arctic Fox, Polar Bear, Snowy Owl
+
+---
+
+## 🤖 ML Models Explained
+
+1. Health Classifier
+Calculates a health score from 0 to 100 based on temperature, rainfall, pollution, deforestation rate, and biodiversity.
+Score above 70 = Healthy
+Score 40 to 69 = Stressed
+Score below 40 = Collapsing
+
+2. Lotka-Volterra Population Dynamics
+Simulates predator-prey population changes over time using differential equations. Models real ecological cycles between plants, herbivores, and predators week by week.
+
+3. Recovery Time Predictor
+Estimates how many weeks it will take for a stressed ecosystem to recover back to Healthy status.
+
+4. Collapse Risk Classifier
+Classifies the probability of ecosystem collapse from 0 to 1 based on pollution level, deforestation rate, and biodiversity index.
+
+5. Recommendation Engine
+Generates a ranked list of interventions marked HIGH, MEDIUM, or LOW priority based on the biggest detected threats in the ecosystem.
+
+---
+
+## 📊 Environmental Parameters
+
+Temperature — range -10°C to 50°C — warning above 38°C or below 17°C
+Rainfall — range 0 to 5000 mm per year — warning below 300mm or above 2500mm
+Pollution — range 0 to 100 percent — warning above 70 percent
+Deforestation Rate — range 0 to 100 percent per year — warning above 30 percent
+
+---
+
+## 💊 Interventions Available
+
+Reforestation — reduces the deforestation rate
+Pollution Reduction — lowers the pollution level
+Species Introduction — boosts a specific population
+Habitat Restoration — improves temperature and rainfall conditions
+Hunting Ban — protects predator populations from decline
+
+---
+
+## 📡 API Endpoints
+
+GET  /api/healthz                     — server health check
+GET  /api/ecosystems                  — list all ecosystems
+POST /api/ecosystems                  — create a new ecosystem
+GET  /api/ecosystems/:id              — get one ecosystem by ID
+PUT  /api/ecosystems/:id/intervene    — apply an intervention
+POST /api/simulation/:id/run          — run a population simulation
+
+---
+
+## 📁 Project Structure
+
+project/
+  artifacts/
+    ecosystem/         React frontend (pages, components)
+    api-server/        Express API and ML pipeline
+    ecosystem-deck/    7-slide presentation deck
+  lib/
+    db/                PostgreSQL schema using Drizzle ORM
+    api-spec/          OpenAPI specification
+    api-client-react/  Auto-generated API client
+  vercel.json          Frontend deployment config
+  render.yaml          API server deployment config
+  README.md
+
+---
+
+## 🚀 Run Locally
+
+pnpm install
+pnpm --filter @workspace/db run push
+pnpm --filter @workspace/api-server run dev
+pnpm --filter @workspace/ecosystem run dev
+
+---
+
+## 📈 ML Model Outputs
+
+Health Classifier       — health score from 0 to 100
+Lotka-Volterra          — population graph over time
+Recovery Predictor      — number of weeks to recovery
+Collapse Risk           — probability from 0 to 1
+Recommendation Engine   — prioritized list of actions
+
+---
+
+## 🔮 Planned Enhancements
+
+- User login and personal ecosystem portfolios
+- Real NASA satellite data integration
+- Neural network health classifier
+- Climate change scenario simulation
+- CSV export of simulation results
+- Mobile app version
+- Multi-ecosystem comparison dashboard
+
+---
+
+## 👤 About
+
+Built using React, Node.js, PostgreSQL, and a custom 5-model ML simulation pipeline.
