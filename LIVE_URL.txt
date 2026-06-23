@@ -1,13 +1,11 @@
-# Public live URL (fill in after deployment)
+# Self Healing Ecosystem — Public links
 
-**Repository:** https://github.com/khamzatchimaev1826/Self-Healing-Ecosystem
+GitHub repository (full source code):
+https://github.com/khamzatchimaev1826/Self-Healing-Ecosytem-Model
 
-Frontend (share this link with everyone):
-https://YOUR-APP.vercel.app
+Live app (share this with everyone):
+https://self-healing-model--khamzatchimaev1.replit.app
 
-API (set as VITE_API_URL in Vercel):
-https://YOUR-API.onrender.com
-
-Database: Neon PostgreSQL (shared — all visitors see the same ecosystems)
-
-Deploy steps: see DEPLOY.md
+Your own permanent deploy (optional — see DEPLOY.md):
+Frontend: https://YOUR-APP.vercel.app
+API: https://YOUR-API.onrender.com
