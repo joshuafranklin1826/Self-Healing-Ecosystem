@@ -1,11 +1,15 @@
-# Self Healing Ecosystem — Public links
+# Self Healing Ecosystem — Links
 
-GitHub repository (full source code):
-https://github.com/khamzatchimaev1826/Self-Healing-Ecosytem-Model
+GitHub (full project — code, README, all folders):
+https://github.com/khamzatchimaev1826/Self-Healing-Ecosystem
 
-Live app (share this with everyone):
-https://self-healing-model--khamzatchimaev1.replit.app
+Permanent live app (share with everyone — add after Vercel deploy):
+https://YOUR-APP.vercel.app
 
-Your own permanent deploy (optional — see DEPLOY.md):
-Frontend: https://YOUR-APP.vercel.app
-API: https://YOUR-API.onrender.com
+API backend (add after Render deploy — set as VITE_API_URL in Vercel):
+https://YOUR-API.onrender.com
+
+Local development:
+http://localhost:3000
+
+Deploy guide: see DEPLOY.md

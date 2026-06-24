@@ -1,10 +1,8 @@
 # 🌿 Self Healing Ecosystem
 
-📦 **GitHub:** [github.com/khamzatchimaev1826/Self-Healing-Ecosytem-Model](https://github.com/khamzatchimaev1826/Self-Healing-Ecosytem-Model)
+📦 **GitHub:** [github.com/khamzatchimaev1826/Self-Healing-Ecosystem](https://github.com/khamzatchimaev1826/Self-Healing-Ecosystem)
 
-🔗 **Live Demo:** [self-healing-model--khamzatchimaev1.replit.app](https://self-healing-model--khamzatchimaev1.replit.app) — anyone can view, add, simulate, and analyze ecosystems.
-
-_To deploy your own permanent link (Vercel + Render + Neon): see [DEPLOY.md](./DEPLOY.md) and update [LIVE_URL.txt](./LIVE_URL.txt)._
+🔗 **Live Demo:** Deploy your permanent public link (see [Permanent public link](#-permanent-public-link) below) — anyone can view, add, simulate, and analyze ecosystems.
 
 A full-stack Machine Learning powered web application that simulates ecosystem dynamics, predicts ecological health, and recommends interventions for forest, river, grassland, and polar biomes.
 
@@ -234,6 +232,53 @@ Self-Healing-Ecosystem/
 ├── render.yaml             ← Render API deployment config
 └── README.md
 ```
+
+---
+
+## 📤 Upload to GitHub (VS Code)
+
+Your full project (all files, folders, README) is ready to push. Do this once:
+
+### Step 1 — Create empty repo on GitHub
+
+1. Open [github.com/new](https://github.com/new)
+2. **Repository name:** `Self-Healing-Ecosystem`
+3. Leave **Public** selected
+4. Do **not** add README, .gitignore, or license (you already have them)
+5. Click **Create repository**
+
+### Step 2 — Connect and push from VS Code
+
+1. Open this folder in **VS Code**
+2. Click **Source Control** (branch icon on the left) or press `Ctrl+Shift+G`
+3. If asked, **Sign in to GitHub** (click **Sign in** in the Source Control panel)
+4. Open terminal (`Ctrl+``) and run:
+
+```powershell
+git remote remove origin
+git remote add origin https://github.com/khamzatchimaev1826/Self-Healing-Ecosystem.git
+git push -u origin main
+```
+
+5. Or use the UI: **Source Control → … menu → Push** (after setting remote above)
+
+After push, your code lives at: **https://github.com/khamzatchimaev1826/Self-Healing-Ecosystem**
+
+---
+
+## 🌍 Permanent public link
+
+**Localhost** (`http://localhost:3000`) only works on your PC. For a **permanent link anyone can open**, deploy once (free):
+
+| Step | Service | What you get |
+|------|---------|----------------|
+| 1 | [Neon](https://neon.tech) | Free PostgreSQL (shared data for all users) |
+| 2 | [Render](https://render.com) | API URL — connect repo, use `render.yaml`, set `DATABASE_URL` |
+| 3 | [Vercel](https://vercel.com) | **Public app URL** — import repo, set `VITE_API_URL` to your Render URL |
+
+Full instructions: **[DEPLOY.md](./DEPLOY.md)**
+
+After deploy, update **[LIVE_URL.txt](./LIVE_URL.txt)** and the Live Demo line at the top of this README with your Vercel URL, then commit and push again from VS Code.
 
 ---
 
